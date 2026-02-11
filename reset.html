@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Password reset</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <p>Открываем приложение…</p>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const userId = params.get("userId");
+      const secret = params.get("secret");
+
+      // Схема твоего приложения (expo.scheme)
+      const deeplink =
+        `fynux://reset-password?userId=${encodeURIComponent(userId || "")}` +
+        `&secret=${encodeURIComponent(secret || "")}`;
+
+      location.replace(deeplink);
+    </script>
+  </body>
+</html>
