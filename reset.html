@@ -4,20 +4,39 @@
     <meta charset="utf-8" />
     <title>Password reset</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: Arial, sans-serif; padding: 16px; }
+      a, button { font-size: 16px; }
+      button { padding: 12px 16px; }
+      code { word-break: break-all; }
+    </style>
   </head>
   <body>
-    <p>Открываем приложение…</p>
+    <h3>Открываем приложение…</h3>
+    <p>Если приложение не открылось автоматически — нажмите кнопку:</p>
+    <button id="open">Открыть приложение</button>
+
+    <p>Ссылка для открытия:</p>
+    <code id="link"></code>
+
     <script>
       const params = new URLSearchParams(location.search);
       const userId = params.get("userId");
       const secret = params.get("secret");
 
-      // Схема твоего приложения (expo.scheme)
       const deeplink =
-        `fynux://reset-password?userId=${encodeURIComponent(userId || "")}` +
-        `&secret=${encodeURIComponent(secret || "")}`;
+        `fynux://reset-password?userId=${encodeURIComponent(userId||"")}` +
+        `&secret=${encodeURIComponent(secret||"")}`;
 
-      location.replace(deeplink);
+      document.getElementById("link").textContent = deeplink;
+
+      function go() { window.location.href = deeplink; }
+
+      document.getElementById("open").addEventListener("click", go);
+
+      // авто-попытка
+      setTimeout(go, 300);
     </script>
   </body>
 </html>
+
